@@ -3,22 +3,11 @@ package models;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Subject {
+import dbConnection.DBConnection;
 
-	public Connection connect() {
-		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/project", "root", "");
-			
-			if(connection != null ) {
-				System.out.println("Successfully connected!");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
+public class Subject {
 	
+	private DBConnection db;
 	
 	private int year;
 	private String semester;
@@ -108,7 +97,7 @@ public class Subject {
 		String result = "";
 		
 		try {
-			Connection connection = connect();
+			Connection connection = db.connect();
 			
 			String insertSub = "insert into subject values(?,?,?,?,?,?,?,?,?)";
 			
@@ -140,7 +129,7 @@ public class Subject {
 		ArrayList<Subject> subject_group = new ArrayList<>();
 		
 		try {
-			Connection connection = connect();
+			Connection connection = db.connect();
 			String subjectList = "select * from subject";
 			
 			Statement st = connection.createStatement();
@@ -173,7 +162,7 @@ public class Subject {
 	public void updateSubjects(int id, int year, String sem, String subCode,String subName,int lecHrs, int tuteHrs, int labHrs, int evlHrs) {
 		
 		try {
-			Connection connection = connect();
+			Connection connection = db.connect();
 			
 			String updateSubject = "update subject set year = '"+year+"', semester ='"+sem+"', subject_code = '"+subCode+"',"
 					+ " subject_name = '"+subName+"', lecture_hours = '"+lecHrs+"', tute_hours = '"+tuteHrs+"',"
@@ -191,7 +180,7 @@ public class Subject {
 	public void deleteSubject(int id) {
 
 		try {
-			Connection connection = connect();
+			Connection connection = db.connect();
 			
 			String deleteSubjectQuery = "delete from subject where sub_id = '"+id+"'";
 			PreparedStatement ps = connection.prepareStatement(deleteSubjectQuery);
