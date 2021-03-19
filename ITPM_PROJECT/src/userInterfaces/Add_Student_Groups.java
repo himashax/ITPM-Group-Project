@@ -216,7 +216,11 @@ public class Add_Student_Groups implements ActionListener{
 		
 			String unsavedGroupID = yearAndSemester.substring(1, 6) + "." + programme +"."+ gno +"."+ sgno;
 			
-			if(gid.isEmpty() || sid.isEmpty()) {
+			
+			if(yearAndSemester.isEmpty() || programme.isEmpty() || gno == 0 || sgno == 0) {
+				JOptionPane.showMessageDialog(frame,"Please fill all the details","Alert",JOptionPane.WARNING_MESSAGE);
+			}
+			else if(gid.isEmpty() || sid.isEmpty()) {
 				JOptionPane.showMessageDialog(frame,"Please generate Group and Sub Group IDs","Alert",JOptionPane.WARNING_MESSAGE);
 				
 			}else if(sid.equals(unsavedGroupID) == false) {
@@ -238,7 +242,7 @@ public class Add_Student_Groups implements ActionListener{
 					}
 					
 				}else {
-					JOptionPane.showMessageDialog(frame,"Already exists.","Alert",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(frame,"Sub group already exists.","Alert",JOptionPane.WARNING_MESSAGE);
 				}
 			}
 						
