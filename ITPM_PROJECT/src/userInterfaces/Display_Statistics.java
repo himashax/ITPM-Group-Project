@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import models.Statistics;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -81,15 +84,17 @@ public class Display_Statistics {
 		lblNewLabel_1_2.setBounds(27, 116, 108, 16);
 		panel_3.add(lblNewLabel_1_2);
 		
-		lastlec = new JLabel("");
+		Statistics st = new Statistics();
+		
+		lastlec = new JLabel(st.latestRecord("lecturer"));
 		lastlec.setBounds(176, 32, 206, 16);
 		panel_3.add(lastlec);
 		
-		lastgroup = new JLabel("");
+		lastgroup = new JLabel(st.latestRecord("student_group"));
 		lastgroup.setBounds(176, 71, 206, 16);
 		panel_3.add(lastgroup);
 		
-		lastsub = new JLabel("");
+		lastsub = new JLabel(st.latestRecord("subject"));
 		lastsub.setBounds(147, 116, 206, 16);
 		panel_3.add(lastsub);
 		
@@ -116,7 +121,7 @@ public class Display_Statistics {
 		lblNewLabel_1_3.setBounds(12, 13, 125, 16);
 		panel_4_3.add(lblNewLabel_1_3);
 		
-		countroom = new JLabel("");
+		countroom = new JLabel(String.valueOf(st.registeredCount("location")));
 		countroom.setBounds(43, 50, 56, 16);
 		panel_4_3.add(countroom);
 		
@@ -130,7 +135,7 @@ public class Display_Statistics {
 		lblNewLabel_1_3_1.setBounds(12, 13, 125, 16);
 		panel_4_3_1.add(lblNewLabel_1_3_1);
 		
-		countstd = new JLabel("");
+		countstd = new JLabel(String.valueOf(st.registeredCount("student_group")));
 		countstd.setBounds(45, 51, 56, 16);
 		panel_4_3_1.add(countstd);
 		
@@ -144,7 +149,7 @@ public class Display_Statistics {
 		lblNewLabel_1_3_2.setBounds(12, 13, 125, 16);
 		panel_4_3_2.add(lblNewLabel_1_3_2);
 		
-		countsub = new JLabel("");
+		countsub = new JLabel(String.valueOf(st.registeredCount("subject")));
 		countsub.setBounds(43, 48, 56, 16);
 		panel_4_3_2.add(countsub);
 		
@@ -158,7 +163,8 @@ public class Display_Statistics {
 		lblNewLabel_1_3_3.setBounds(12, 13, 125, 16);
 		panel_4_3_3.add(lblNewLabel_1_3_3);
 		
-		countlec = new JLabel("");
+	
+		countlec = new JLabel(String.valueOf(st.registeredCount("lecturer")));
 		countlec.setBackground(Color.LIGHT_GRAY);
 		countlec.setBounds(42, 50, 56, 16);
 		panel_4_3_3.add(countlec);

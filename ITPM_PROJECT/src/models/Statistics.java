@@ -7,10 +7,10 @@ import dbConnection.DBConnection;
 public class Statistics {
 
 	
-		static DBConnection db = new DBConnection() ;
+	DBConnection db = new DBConnection() ;
 
 
-		public static int registeredStudents(String value) {
+		public int registeredCount(String value) {
 
 		Connection conn = db.connect();
 
@@ -34,7 +34,7 @@ public class Statistics {
 
 
 
-		public static String latestGroup(String value) {
+		public String latestRecord(String value) {
 		Connection conn = db.connect();
 
 		String lastRecord = "";
@@ -64,11 +64,6 @@ public class Statistics {
 
 		return lastRecord;
 		}
-		public static void main(String[] args) {
-			 System.out.println(registeredStudents("lecturer"));
-			//System.out.println(latestGroup("lecturer"));
-			//System.out.println(latestGroup("subject"));
-			}
 		
 		
 }
