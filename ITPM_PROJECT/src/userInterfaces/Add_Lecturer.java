@@ -97,32 +97,37 @@ public class Add_Lecturer implements ActionListener {
 		lblDept.setBounds(34, 132, 86, 25);
 		frmAddLecturer.getContentPane().add(lblDept);
 		
-		
-		String[] dep= {"Software Engineering","CSSE"};
-		comboBox_dept = new JComboBox(dep);
-		comboBox_dept.setEditable(true);
-		comboBox_dept.setBounds(148,132,192,20);
-		frmAddLecturer.getContentPane().add(comboBox_dept);
-		
+
 		String[] fac = {"Computing" , "Engineering"};
 		comboBox_fac = new JComboBox(fac);
 		comboBox_fac.setEditable(true);
 		comboBox_fac.setBounds(148,86,192,20);
 		frmAddLecturer.getContentPane().add(comboBox_fac);
 		
+
+		String[] com_dep= {"Software Engineering","CSSE"};
+//		String[] eng_dep = {"Electrical","Mechanical"};
+
+		comboBox_dept = new JComboBox(com_dep);
+		comboBox_dept.setEditable(true);
+		comboBox_dept.setBounds(148,132,192,20);
+		frmAddLecturer.getContentPane().add(comboBox_dept);
+		
+		
+		
 		lblCampuscentre = new JLabel("CAMPUS/CENTRE");
 		lblCampuscentre.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCampuscentre.setBounds(391, 30, 113, 25);
 		frmAddLecturer.getContentPane().add(lblCampuscentre);
 		
-		String[] cen = {"Malabe","Metro Campus","Kandy"};
+		String[] cen = {"Malabe","Metro Campus","Kandy","Matara","Jaffna"};
 		comboBox_centre = new JComboBox(cen);
 		comboBox_centre.setEditable(true);
 		comboBox_centre.setBounds(519, 32, 205, 20);
 		frmAddLecturer.getContentPane().add(comboBox_centre);
 		
-		String[] build = {"New building","Main building"};
-		comboBox_build = new JComboBox(build);
+		String[] Malabe_build = {"New building","Main building"};
+		comboBox_build = new JComboBox(Malabe_build);
 		comboBox_build.setEditable(true);
 		comboBox_build.setBounds(519,86,205,20);
 		frmAddLecturer.getContentPane().add(comboBox_build);
@@ -189,8 +194,7 @@ public class Add_Lecturer implements ActionListener {
 		btnClear = new JButton("CLEAR");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-			    JOptionPane.showMessageDialog(null, "Cleared!");
+
 			}
 		});
 		btnClear.setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -252,26 +256,41 @@ public class Add_Lecturer implements ActionListener {
 		btnRank.setBounds(78, 172, 149, 23);
 		panel_1.add(btnRank);
 		btnRank.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnRank.setBackground(new Color(176, 224, 230));
 		btnRank.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(textFieldEmpId.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null,"Please enter an Employee ID!","Alert",JOptionPane.WARNING_MESSAGE);
-				}
-				else {
+				}else if(textFieldEmpId.getText().length() != 6) {
+					JOptionPane.showMessageDialog(null,"Check the Employee ID","Alert",JOptionPane.WARNING_MESSAGE);
+					
+				}else {
 					String level,empID,rank;
-					level = (String) comboBox_level.getSelectedItem();
-					empID = textFieldEmpId.getText();
-					rank = level + "." +empID;
-					textField_Rank.setText(rank);
-					JOptionPane.showMessageDialog(null, "Generated Successfully!");
+					try {
+						level = (String) comboBox_level.getSelectedItem();
+						empID = textFieldEmpId.getText();
+						
+					    Integer.parseInt(empID);
+						
+					    if(comboBox_level.getSelectedItem()== null){
+							JOptionPane.showMessageDialog(null,"Select a level!","Alert",JOptionPane.WARNING_MESSAGE);
+						}else {
+							rank = level + "." +empID;
+							System.out.println("Rank " + rank);
+							textField_Rank.setText(rank);
+							JOptionPane.showMessageDialog(null, "Generated Successfully!");
+						}
+
+					}
+					catch (NumberFormatException n) {
+					     //Not an integer
+						JOptionPane.showMessageDialog(null,"Invalid Characters in empID!","Alert",JOptionPane.WARNING_MESSAGE);
+					}
 				}
-				
 				
 			}
 		});
-		btnRank.setBackground(new Color(176, 224, 230));
 		
-
 	}
 	
 	public void resetField() {
@@ -303,40 +322,65 @@ public class Add_Lecturer implements ActionListener {
 			}else if(textField_Rank.getText().isEmpty()){
 				JOptionPane.showMessageDialog(null, "Please Generate the rank!","Alert",JOptionPane.WARNING_MESSAGE);
 			}else {
+//				String[] com_dep= {"Software Engineering","CSSE"};
+//				String[] eng_dep = {"Electrical","Mechanical"};
+				
 				String name = (String)textFieldName.getText();
 				String faculty = (String)comboBox_fac.getSelectedItem();
+				
+//				if(comboBox_fac.getSelectedItem().equals("Computing")) {
+//					comboBox_dept = new JComboBox(com_dep);
+//				}else if(comboBox_fac.getSelectedItem().equals("Engineering")){
+//					comboBox_dept = new JComboBox(com_dep);
+//				}
+				
 				String dept = (String)comboBox_dept.getSelectedItem();
 				int empid = Integer.parseInt(textFieldEmpId.getText().toString());
+				
+				if(comboBox_level.getSelectedItem()== null){
+					JOptionPane.showMessageDialog(null,"Select a level!","Alert",JOptionPane.WARNING_MESSAGE);
+				}
 				int level = Integer.parseInt((String) comboBox_level.getSelectedItem());
 				String rank = (String)textField_Rank.getText();
 				String campus = (String)comboBox_centre.getSelectedItem();
 				String build = (String)comboBox_build.getSelectedItem();
 				
+				String test = level + "." + empid;
+				System.out.println("New rank" + test);
+				
+				
 				//newly added
 				String day = (String)comboBox_day.getSelectedItem();
 				String hours = (String) comboBox_hour.getSelectedItem();
+
 				
-				int confirm =JOptionPane.showConfirmDialog(null,"Are you sure?","An Inane Question",JOptionPane.YES_NO_OPTION);
-				
-				if(confirm == JOptionPane.YES_OPTION) {
-					Lecturer lec = new Lecturer();
+				if(rank.equals(test) == false){
+					JOptionPane.showMessageDialog(null, "Please click the 'Generate the rank!'","Alert",JOptionPane.WARNING_MESSAGE);
+				}else {
+					int confirm =JOptionPane.showConfirmDialog(null,"Are you sure?","An Inane Question",JOptionPane.YES_NO_OPTION);
 					
-					//newly added
-					Active_Days days = new Active_Days();
-					lec.insertLecturers(name, faculty, dept,empid, level, rank, campus, build);
+					if(confirm == JOptionPane.YES_OPTION) {
+						Lecturer lec = new Lecturer();
+						
+						//newly added
+						Active_Days days = new Active_Days();
+						lec.insertLecturers(name, faculty, dept,empid, level, rank, campus, build);
+						
+						//newly added
+						days.insertActiveDays(empid, day, hours);
+					}
 					
-					//newly added
-					days.insertActiveDays(empid, day, hours);
+					resetField();
 				}
 				
-				resetField();
+
 			}
-			
 			
 		}
 		
 		if(obj == btnClear) {
 			resetField();
+			JOptionPane.showMessageDialog(null, "Cleared!");
 		}
 		
 	}

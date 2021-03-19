@@ -8,11 +8,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import dbConnection.DBConnection;
-
 public class Active_Days {
+
+	public Connection connect() {
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/project", "root", "");
+			
+			if(connection != null) {
+				System.out.println("Successfully connected!");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return connection;
+	}
 	
-	private DBConnection db;
 	
 	private int EmpID;
 	private String Days;
@@ -52,7 +64,7 @@ public class Active_Days {
 		
 		try {
 			
-			Connection connection = db.connect();
+			Connection connection = connect();
 			
 			String insertDays = "insert into lecturer_activedays values (?,?,?)";
 			PreparedStatement ps = connection.prepareStatement(insertDays);
@@ -75,7 +87,7 @@ public class Active_Days {
 		ArrayList<Active_Days> activeDay_group = new ArrayList<>();
 		
 		try {
-			Connection connection = db.connect();
+			Connection connection = connect();
 			String listDayGroup = "select * from lecturer_activedays";
 			
 			Statement st = connection.createStatement();
@@ -98,11 +110,11 @@ public class Active_Days {
 		return activeDay_group;
 	} 
 	
-	
+
 	public void updateActiveDays(int id,String day,String hours) {
 		
 		try {
-			Connection con = db.connect();
+			Connection con = connect();
 			
 			String updateQuery = "Update lecturer_activedays set days = '"+day+"', hours='"+hours+"' where emp_id = '"+id+"' ";
 		
@@ -118,7 +130,7 @@ public class Active_Days {
 	
 	public void deleteActiveDays(int id) {
 		try {
-			Connection connection = db.connect();
+			Connection connection = connect();
 			String delDayQuery = "delete from lecturer_activedays where emp_id = '"+id+"'";
 			PreparedStatement ps = connection.prepareStatement(delDayQuery);
 			ps.execute();

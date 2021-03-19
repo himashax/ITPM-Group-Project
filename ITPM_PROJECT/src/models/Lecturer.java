@@ -3,11 +3,24 @@ package models;
 import java.sql.*;
 import java.util.ArrayList;
 
-import dbConnection.DBConnection;
-
 public class Lecturer {
 
-	DBConnection db = new DBConnection();
+	
+	public Connection connect() {
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/project", "root", "");
+			
+			if(connection != null) {
+				System.out.println("Successfully connected!");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return connection;
+	}
+	
 	
 	private String lecName;
 	private String faculty;
@@ -100,7 +113,7 @@ public class Lecturer {
 		
 		try {
 			
-			Connection connection = db.connect();
+			Connection connection = connect();
 			
 			String insertLec = "insert into lecturer values (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = connection.prepareStatement(insertLec);
@@ -131,7 +144,7 @@ public class Lecturer {
 		ArrayList<Lecturer> lec_group = new ArrayList<>();
 		
 		try {
-			Connection connection = db.connect();
+			Connection connection = connect();
 			String listGroup = "select * from lecturer";
 			
 			Statement st = connection.createStatement();
@@ -163,7 +176,7 @@ public class Lecturer {
 	public void updateLecturers(int id,String name,String faculty,String dept,int empID,int level,String rank,String campus,String build) {
 		
 		try {
-			Connection con = db.connect();
+			Connection con = connect();
 			
 			String updateQuery = "Update lecturer set name = '"+name+"', faculty = '"+faculty+"', department = '"+dept+"',emp_id = '"+empID+"', level ='"+level+"',"
 					+ " rank = '"+rank+"', campus = '"+campus+"', building='"+build+"' where lec_id = '"+id+"' ";
@@ -180,7 +193,7 @@ public class Lecturer {
 	/**********empid eka wenas krnna in update and del****/
 	public void deleteLec(int id) {
 		try {
-			Connection connection = db.connect();
+			Connection connection = connect();
 			String delQuery = "delete from lecturer where lec_id = '"+id+"'";
 			PreparedStatement ps = connection.prepareStatement(delQuery);
 			ps.execute();

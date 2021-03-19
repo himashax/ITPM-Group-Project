@@ -346,7 +346,6 @@ public class Manage_Subject implements ActionListener {
 					DefaultTableModel model = (DefaultTableModel)table.getModel();
 					model.setRowCount(0);
 					subjectGroupTable();
-					resetFields();
 				}
 			}
 			
