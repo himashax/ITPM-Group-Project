@@ -42,7 +42,7 @@ public class Manage_Lecturer implements ActionListener {
 	private JComboBox comboBox_mHours;
 	private JComboBox comboBox_mFaculty;
 	private JComboBox comboBox_mLevel;
-	private int idValue;
+	private int idValue, delEmpID;
 	private JButton btnUpdate, btnDelete, btnClear;
 	/**
 	 * Launch the application.
@@ -214,6 +214,8 @@ public class Manage_Lecturer implements ActionListener {
 	    		
 	    		idValue = Integer.parseInt(modal.getValueAt(rowId, 0).toString());
 	    		//System.out.println(idValue);
+	    		delEmpID = Integer.parseInt(modal.getValueAt(rowId, 4).toString());
+	    		
 	    		
 	    		textField_mName.setText((String) modal.getValueAt(rowId, 1));
 	    		comboBox_mFaculty.setSelectedItem(modal.getValueAt(rowId, 2));
@@ -223,7 +225,8 @@ public class Manage_Lecturer implements ActionListener {
 	    		textField_mRank.setText((String) modal.getValueAt(rowId, 6));
 	    		comboBox_mCampus.setSelectedItem(modal.getValueAt(rowId, 7));
 	    		comboBox_mBuilding.setSelectedItem(modal.getValueAt(rowId, 8));
-	    		
+	    		comboBox_mDays.setSelectedItem(modal.getValueAt(rowId, 9));
+	    		comboBox_mHours.setSelectedItem(modal.getValueAt(rowId, 10));
 	    		//textField_mEId.setText(modal.getValueAt(rowId, 0).toString());
 	    	}
 	    });
@@ -279,8 +282,8 @@ public class Manage_Lecturer implements ActionListener {
 			 row[8] = lecturer_list.get(i).getBuilding();
 			 
 			 //newly added
-			 //row[9] = "wade";
-			// row[10] = active_list.get(i).getHours();
+			 row[9] = active_list.get(i).getDays();
+			 row[10] = active_list.get(i).getHours();
 			 
 			 modal.addRow(row);
 		 }
@@ -366,7 +369,7 @@ public class Manage_Lecturer implements ActionListener {
 				Active_Days actDays = new Active_Days();
 				lec.deleteLec(idValue);
 				
-				//actDays.deleteActiveDays();
+				actDays.deleteActiveDays(delEmpID);
 				
 				//to display remaining table with data 
 				DefaultTableModel model = (DefaultTableModel)table.getModel();
