@@ -116,6 +116,8 @@ public class Active_Days {
 		}
 	}
 	
+	/************************************/
+	
 	public void deleteActiveDays(int id) {
 		try {
 			Connection connection = db.connect();
