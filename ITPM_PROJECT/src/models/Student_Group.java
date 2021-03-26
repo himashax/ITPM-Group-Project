@@ -9,7 +9,7 @@ import dbConnection.DBConnection;
 
 public class Student_Group {
 	
-	private DBConnection dbConnection;
+	private DBConnection dbConnection = new DBConnection();
 	
 	private String id;
 	private String yearAndSemester;

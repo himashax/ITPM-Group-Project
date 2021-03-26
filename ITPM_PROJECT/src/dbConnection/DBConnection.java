@@ -1,7 +1,6 @@
 package dbConnection;
 
 import java.sql.*;
-// changed some files lol
 
 public class DBConnection {
 
